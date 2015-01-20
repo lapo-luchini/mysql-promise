@@ -1,5 +1,5 @@
-lapo-download
-=============
+mysql-promise2
+==============
 
 HTTP GET of a file using every header available to avoid re-fetching an up-to-date file. Right now headers are saved in a `.headers` file.
 
@@ -24,7 +24,7 @@ HTTP GET of a file using every header available to avoid re-fetching an up-to-da
 ISC license
 -----------
 
-node MySQL promises Copyright (c) 2015 Lapo Luchini <lapo@lapo.it>
+node MySQL promise Copyright (c) 2015 Lapo Luchini <lapo@lapo.it>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
