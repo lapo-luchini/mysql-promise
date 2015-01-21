@@ -1,30 +1,37 @@
-mysql-promise2
+﻿mysql-promise2
 ==============
 
-HTTP GET of a file using every header available to avoid re-fetching an up-to-date file. Right now headers are saved in a `.headers` file.
+Standard wrapper around [MySQL](https://github.com/felixge/node-mysql), function names ending with `*Async` return [Bluebird](https://github.com/petkaantonov/bluebird/) Promises.
+
+I also added a Bluebird [Disposer](https://github.com/petkaantonov/bluebird/blob/master/API.md#disposerfunction-disposer---disposer) `pool.getTransaction()` to ease creating chained Promises in a single transaction which gets automatically committed if everythin's ok or rolled back if there is an error.
 
     var Promise = require('bluebird'),
-        mysql = require('mysql-promise2');
+        mysql = require('mysql-promise2'),
+        pool = mysql.createPool({
+            connectionLimit: 5,
+            host: '', user: '', password: '', database: '',
+            //debug: ['ComQueryPacket', 'RowDataPacket']
+        });
     Promise.using(pool.getTransaction(), function (conn) {
-        // everything inside is a transaction
-        // errors produce a rollback
+        // everything inside is in a transaction
         return pool.queryAsync(
-            "SELECT * FROM data WHERE valid = 1 ORDER BY last DESC LIMIT 1"
+            "SELECT * FROM data WHERE used = 0 ORDER BY last DESC LIMIT 1"
         ).spread(function (rows, cols) {
             var data = rows[0];
             return pool.queryAsync("UPDATE data SET used = 1 WHERE id = ?", [data.id]
                 ).then(function () { return data; });
         });
+        // end of the transaction
     }).then(function (data) {
-        // everything was committed
-    }).catch(function (data) {
-        // transaction rollback already done
+        // transaction was a COMMIT
+    }).catch(function () {
+        // transaction was a ROLLBACK
     });
 
 ISC license
 -----------
 
-node MySQL promise Copyright (c) 2015 Lapo Luchini <lapo@lapo.it>
+node MySQL promise Copyright © 2015 Lapo Luchini <lapo@lapo.it>
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
 
