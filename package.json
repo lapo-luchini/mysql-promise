@@ -8,11 +8,11 @@
   },
   "author": "Lapo Luchini",
   "license": "ISC",
-  "homepage": "TODO",
-  "bugs": "TODO",
+  "homepage": "https://github.com/lapo-luchini/mysql-promise",
+  "bugs": "https://github.com/lapo-luchini/mysql-promise/issues",
   "repository": {
     "type": "git",
-    "url": "TODO"
+    "url": "https://github.com/lapo-luchini/mysql-promise.git"
   },
   "keywords": [ "mysql", "promise", "transactions" ],
   "engines": {
