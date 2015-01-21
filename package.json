@@ -1,6 +1,6 @@
 {
   "name": "mysql-promise2",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "mysql wrapper with promises and transactions.",
   "main": "index.js",
   "scripts": {
